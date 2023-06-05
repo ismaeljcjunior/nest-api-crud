@@ -5,6 +5,9 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  findIndex(arg0: (user: any) => boolean) {
+    throw new Error('Method not implemented.');
+  }
   private users: User[] = [];
 
   create(createUserDto: CreateUserDto) {
@@ -15,7 +18,6 @@ export class UsersService {
     const user = {
       id,
       ...createUserDto
-
     }
 
     this.users.push(user);
@@ -23,15 +25,28 @@ export class UsersService {
   }
 
   findAll() {
-    return `This action returns all users`;
+    return this.users;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    const index = this.users.findIndex(user => user.id === id);
+
+
+    return this.users[index];
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const user = this.findOne(id)
+
+    const newUser = {
+      ...user,
+      ...updateUserDto
+    }
+    const index = this.users.findIndex(user => user.id === id);
+
+    this.users[index] = newUser;
+
+    return newUser;
   }
 
   remove(id: number) {
