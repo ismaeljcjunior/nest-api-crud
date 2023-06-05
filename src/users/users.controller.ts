@@ -19,12 +19,11 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: number) {
-    const user =this.usersService.findOne(id);
-    if(!user) {
+    const user = this.usersService.findOne(id);
+    if (!user) {
       throw new NotFoundException('User does not exist')
     }
-
-    return 
+    return
   }
 
   @Patch(':id')
